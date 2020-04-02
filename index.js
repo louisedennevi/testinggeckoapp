@@ -16,7 +16,7 @@ const sassMiddleware = require("node-sass-middleware");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
-// require('dotenv').config()
+
 
 
 app.set("view engine", "ejs");
