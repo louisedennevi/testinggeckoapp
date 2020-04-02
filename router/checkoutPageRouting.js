@@ -36,8 +36,8 @@ router.get("/checkout", verifyToken, async (req, res) => {
                 currency: "sek"
                 }
             }),
-            success_url:"http://localhost:4000/", // where user goes when success
-            cancel_url:"http://localhost:4000/products" // where user goes when no success
+            success_url:req.protocol + "://" + req.get("Host") + "/", // where user goes when success
+            cancel_url:req.protocol + "://" + req.get("Host") + "/checkout" // where user goes when no success
     
         }).then((session)=>{
             console.log(session)
