@@ -20,6 +20,14 @@
                 <span>shopping bag items</span>
             </div>
 
+            <% if(user.cart.length < 1){ %>
+                <div>
+                    Your cart is empty
+                </div>
+
+            <% } %>
+            
+
             <% user.cart.forEach( (product) => { %>
 
             <div class="product-container">
@@ -82,7 +90,7 @@
                 <span><%= user.totalCartPrice %> SEK</span>
             </div>
             <div class="checkout-button-container">
-                <button>Proceed to checkout</button>
+                <button id="btn" type="submit">Proceed to checkout</button>
             </div>
 
 
@@ -93,7 +101,18 @@
 
     <%- include ("partial/footer.ejs") %>
 
-
+    <script src="https://js.stripe.com/v3/"></script>
+        <script>
+        // read publish key 
+            var stripe = Stripe('pk_test_rteYCtti2oD5iTqdc2iGorul00MNAaMk6U')
+            // listen to event, when user click on button, redirect to checkout on stripe
+            document.querySelector("#btn").addEventListener("click", ()=>{
+                stripe.redirectToCheckout({
+                    // own session ID (where user comes, our own checkout) for our app, get from backend
+                    sessionId: "<%=sessionId%>" || undefined
+                })
+            })
+        </script>
 </body>
 
 </html>
